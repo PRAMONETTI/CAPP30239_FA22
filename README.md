@@ -8,7 +8,7 @@ I'm second year MSCAPP student and this is my repository for 2022 fall data visu
 
 You can look at my work per week:
 
-[Week 1] (https://github.com/PRAMONETTI/CAPP30239_FA22/tree/main/week_01)
+Click [Week 1] (https://github.com/PRAMONETTI/CAPP30239_FA22/tree/main/week_01)
 
 [Week 2] (https://github.com/PRAMONETTI/CAPP30239_FA22/tree/main/week_02)
 
