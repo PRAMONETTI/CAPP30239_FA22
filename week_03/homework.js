@@ -10,7 +10,7 @@ d3.csv("library_visits_jan22.csv").then(data => { // We begin by reading the dat
         width = 600,
         margin = ({top: 25, right: 30, bottom: 35, left:50});
 
-    let svg = d3.select("#chart") // Create the svg object as a chart
+    let div = d3.select("#chart") // Create the svg object as a chart
                 .append("svg")
                 .attr("viewbox", [0,0,width,height]);
 
@@ -31,13 +31,13 @@ d3.csv("library_visits_jan22.csv").then(data => { // We begin by reading the dat
         .attr("transform", `translate (${margin.left -5}, 0)`)
         .call(d3.axisLeft(y));
 
-    svg.append("g") // Append the X axis into our svg object
+    div.append("g") // Append the X axis into our svg object
         .call(xAxis);
 
-    svg.append("g") // Append the Y axis into our svg object
+    div.append("g") // Append the Y axis into our svg object
         .call(yAxis);
 
-    let bar = svg.selectAll(".bar") // Create the bar objects to append to the chart
+    let bar = div.selectAll(".bar") // Create the bar objects to append to the chart
         .append("g")
         .data(data)
         .join("g")
