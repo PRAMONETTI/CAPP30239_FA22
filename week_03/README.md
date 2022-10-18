@@ -55,7 +55,7 @@ Primary
 
 ### Location of the data
 
-You can file all the documents related to this data inside of data_final_project folder. 
+You can find all the documents related to this data inside of data_final_project folder. 
 
 ## HOMEWORK
 
