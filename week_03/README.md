@@ -59,6 +59,8 @@ You can find all the documents related to this data inside of data_final_project
 
 ## HOMEWORK
 
+A bar chart has been created, using data of the number of visits to different libraries. The file homework.js has been commented all along showing the details of the process.
+
 ### Files
 
 - homework.html
