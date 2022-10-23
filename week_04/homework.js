@@ -1,6 +1,6 @@
 /* D3 Line Chart */
 
-const height = 500,
+const height = 500, //Start by creating the space of the chart
     width = 800,
     margin = ({ top: 15, right: 30, bottom: 35, left: 40 });
     
