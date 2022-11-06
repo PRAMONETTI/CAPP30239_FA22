@@ -1,0 +1,44 @@
+body {
+    box-sizing: border-box;
+    background-color: #EEE;
+    font-family: system-ui;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+  }
+  
+  div {
+    display: flex;
+    column-gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .introduction {
+    justify-content: center;
+  }
+  
+  @media (max-width: 500px) {
+    div {
+      display: block;
+    }
+  }
+
+  .visualizations {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+  }
+  
+  article {
+    background-color: white;
+    text-align: center;
+    padding: 2em;
+    flex-basis: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
