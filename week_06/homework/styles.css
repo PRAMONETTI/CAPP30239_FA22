@@ -23,8 +23,12 @@ body {
     text-justify: inter-word;
   }
 
-  .introduction {
-    justify-content: center;
+  #introduction {
+    background-color: white;
+    padding: 1em;
+    flex-basis: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
   }
   
   @media (max-width: 500px) {
@@ -43,7 +47,7 @@ body {
     background-color: white;
     text-align: center;
     padding: 2em;
-    flex-basis: 28%;
+    flex-basis: 27%;
     margin-top: 1em;
     margin-bottom: 1em;
   }
