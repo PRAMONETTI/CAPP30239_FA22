@@ -6,20 +6,100 @@ const svg = d3.select("#chart3")
     .append("svg")
     .attr("viewBox", [0, 0, width, height]);
 
-d3.csv('kill_month.csv').then(data => {
+d3.json("a3cleanedonly2015.json").then(data => {
+    let newData = [
+      {
+        "month": "Jan",
+        "count": 0
+      },
+      {
+        "month": "Feb",
+        "count": 0
+      },
+      {
+        "month": "Mar",
+        "count": 0
+      },
+      {
+        "month": "Apr",
+        "count": 0
+      },
+      {
+        "month": "May",
+        "count": 0
+      },
+      {
+        "month": "Jun",
+        "count": 0
+      },
+      {
+        "month": "Jul",
+        "count": 0
+      },
+      {
+        "month": "Aug",
+        "count": 0
+      },
+      {
+        "month": "Sep",
+        "count": 0
+      },
+      {
+        "month": "Oct",
+        "count": 0
+      },
+      {
+        "month": "Nov",
+        "count": 0
+      },
+      {
+        "month": "Dec",
+        "count": 0
+      }
+]
+  
+for (let d of data) {
+  let m = d.Date.substring(0, 2)
+  if (m === "1/") {
+      newData[0].count += 1; 
+  } else if (m === "2/") {
+      newData[1].count += 1; 
+  } else if (m === "3/") {
+      newData[2].count += 1; 
+  } else if (m === "4/") {
+      newData[3].count += 1; 
+  } else if (m === "5/") {
+      newData[4].count += 1; 
+  } else if (m === "6/") {
+      newData[5].count += 1; 
+  } else if (m === "7/") {
+      newData[6].count += 1; 
+  } else if (m === "8/") {
+      newData[7].count += 1; 
+  } else if (m === "9/") {
+      newData[8].count += 1; 
+  } else if (m === "10") {
+      newData[9].count += 1; 
+  } else if (m === "11") {
+      newData[10].count += 1; 
+  } else if (m === "12") {
+      newData[11].count += 1; 
+  }
+};
     let timeParse = d3.timeParse("%b");
 
-    for (let d of data) {
-        d.count = +d.count;
+    
+
+    for (let d of newData) {
         d.month = timeParse(d.month); // using timeParse function we created above
     }
 
     let x = d3.scaleTime()
-        .domain(d3.extent(data, d => d.month)) // returns an array
+        .domain(d3.extent(newData, d => d.month)) // returns an array
         .range([margin.left, width - margin.right]);
 
     let y = d3.scaleLinear()
-        .domain([0,d3.max(data, d => d.count)]).nice() // nice to round up axis tick
+        .domain([0,d3.max(newData, d => d.count)]).nice() // nice to round up axis tick
         .range([height - margin.bottom, margin.top]);
     
     svg.append("g")
@@ -57,7 +137,7 @@ d3.csv('kill_month.csv').then(data => {
         .curve(d3.curveNatural); // more: https://observablehq.com/@d3/d3-line#cell-244
 
     svg.append("path")
-        .datum(data)
+        .datum(newData)
         .attr("d", line)
         .attr("fill", "none")
         .attr("stroke", "steelblue");

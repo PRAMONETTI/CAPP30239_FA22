@@ -1,12 +1,58 @@
-d3.csv("race.csv").then(data => {
+d3.json("a3cleanedonly2015.json").then(data => {
+    let raceData = [
+        {
+            "race": "White",
+            "count": 0
+        },
+        {
+            "race": "Black",
+            "count": 0
+        },
+        {
+            "race": "Hispanic",
+            "count": 0
+        },
+        {
+            "race": "Asian",
+            "count": 0
+        },
+        {
+            "race": "Native",
+            "count": 0
+        },
+        {
+            "race": "Other",
+            "count": 0
+        },
+    ]
 
     for (let d of data) {
-        d.count = +d.count;
-				d.count = d.count.toFixed(2);
+        if (d.Race === "White") {
+            raceData[0].count += 1; 
+        } else if (d.Race === "Black") {
+            raceData[1].count += 1; 
+        } else if (d.Race === "Hispanic") {
+            raceData[2].count += 1; 
+        } else if (d.Race === "Asian") {
+            raceData[3].count += 1; 
+        } else if (d.Race === "Native") {
+            raceData[4].count += 1; 
+        } else if (d.Race === "Other"){
+            raceData[5].count += 1; 
+        }
     };
 
-    // sort alphabetically
-    data.sort((a, b) => d3.ascending(a.race, b.race));
+    let total_race_murders = 0
+
+    for (let d of raceData) {
+        total_race_murders += d.count
+    };
+
+    for (let d of raceData) {
+        d.count = ((d.count / total_race_murders)*100).toFixed(2)
+    }
+
+    raceData.sort((a, b) => d3.ascending(a.race, b.race));
 
     const height = 400,
           width = 500,
@@ -17,12 +63,12 @@ d3.csv("race.csv").then(data => {
         .attr("viewBox", [0, 0, width, height]); // for resizing element in browser
     
     let x = d3.scaleBand()
-        .domain(data.map(d => d.race)) // data, returns array
+        .domain(raceData.map(d => d.race)) // data, returns array
         .range([margin.left, width - margin.right]) // pixels on page
         .padding(0.1);
     
     let y = d3.scaleLinear()
-        .domain([0, d3.max(data, d => d.count)]).nice() // nice rounds the top num
+        .domain([0, d3.max(raceData, d => d.count)]).nice() // nice rounds the top num
         .range([height - margin.bottom, margin.top]); //svgs are built from top down, so this is reversed
     
     /* Update: simplfied axes */
@@ -37,7 +83,7 @@ d3.csv("race.csv").then(data => {
 
     let bar = svg.selectAll(".bar") // create bar groups
         .append("g")
-        .data(data)
+        .data(raceData)
         .join("g")
         .attr("class", "bar");
 
