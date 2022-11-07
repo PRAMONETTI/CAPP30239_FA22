@@ -1,6 +1,6 @@
-const height = 500,
-    width = 800,
-    margin = ({ top: 15, right: 30, bottom: 35, left: 40 });
+const height = 600,
+    width = 700,
+    margin = ({ top: 80, right: 80, bottom: 80, left: 80 });
     
 const svg = d3.select("#chart3")
     .append("svg")
@@ -88,8 +88,6 @@ for (let d of data) {
 };
     let timeParse = d3.timeParse("%b");
 
-    
-
     for (let d of newData) {
         d.month = timeParse(d.month); // using timeParse function we created above
     }
@@ -101,45 +99,67 @@ for (let d of data) {
     let y = d3.scaleLinear()
         .domain([0,d3.max(newData, d => d.count)]).nice() // nice to round up axis tick
         .range([height - margin.bottom, margin.top]);
-    
+
+    //let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let monthNames = ["", "Feb", "", "Apr", "", "Jun", "", "Aug", "", "Oct", "", "Dec"];
+
     svg.append("g")
       .attr("transform", `translate(${margin.left},0)`)
-      .attr("class", "y-axis") // adding a class to y-axis for scoping
+      .attr("class", "y-axis")
       .call(d3.axisLeft(y)
-        .tickSizeOuter(0)
-        .tickSize(-width + margin.right + margin.left) // modified to meet at end of axis
-      );
+              .tickSizeOuter(0)
+              .tickSize(-width + margin.right + margin.left))
+      .call(g => g.select(".domain").remove())
+      .style("font-size", "20px");
 
     svg.append("g")
       .attr("transform", `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(x).tickSizeOuter(0));
+      .call(d3.axisBottom(x)
+              .tickSizeOuter(0)
+              .tickFormat(d => monthNames[d.getMonth()]))
+      .call(g => g.select(".domain").remove())
+      .style("font-size","20px");
 
     svg.append("text")
       .attr("class", "x-label")
       .attr("text-anchor", "end")
       .attr("x", width - margin.right)
-      .attr("y", height)
+      .attr("y", height + 5)
       .attr("dx", "0.5em")
-      .attr("dy", "-0.5em");
+      .attr("dy", "-0.5em")
+      .style("font-size", "25px")
+      .style("fill", "#004669")
+      .style("font-weight", "bold")
+      .text("Month");
     
     svg.append("text")
       .attr("class", "y-label")
       .attr("text-anchor", "end")
-      .attr("x", -margin.top/2)
+      .attr("x", -margin.top / 2)
       .attr("dx", "-0.5em")
-      .attr("y", 10)
+      .attr("y", 20)
       .attr("transform", "rotate(-90)")
+      .style("font-size", "25px")
+      .style("fill", "#004669")
+      .style("font-weight", "bold")
       .text("Total Number of Murders");
     
     let line = d3.line()
-        .x(d => x(d.month))
-        .y(d => y(d.count))
-        .curve(d3.curveNatural); // more: https://observablehq.com/@d3/d3-line#cell-244
+      .x(d => x(d.month))
+      .y(d => y(d.count));
 
     svg.append("path")
-        .datum(newData)
-        .attr("d", line)
-        .attr("fill", "none")
-        .attr("stroke", "steelblue");
+      .datum(newData)
+      .attr("d", line)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue");
+
+    svg.selectAll(".dot")
+      .data(newData.filter(function(d) { return d; }))
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("cx", line.x())
+      .attr("cy", line.y())
+      .attr("r", 5);
 
   });

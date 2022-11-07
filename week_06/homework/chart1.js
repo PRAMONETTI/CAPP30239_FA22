@@ -49,14 +49,15 @@ d3.json("a3cleanedonly2015.json").then(data => {
     };
 
     for (let d of raceData) {
-        d.count = ((d.count / total_race_murders)*100).toFixed(2)
+        d.count = ((d.count / total_race_murders) * 100).toFixed(1)
     }
 
     raceData.sort((a, b) => d3.ascending(a.race, b.race));
 
     const height = 400,
           width = 500,
-          margin = ({ top: 25, right: 30, bottom: 35, left: 50 });
+          margin = ({ top: 50, right: 50, bottom: 50, left: 80 })
+          padding = 10;
 
     let svg = d3.select("#chart1")
         .append("svg")
@@ -65,21 +66,27 @@ d3.json("a3cleanedonly2015.json").then(data => {
     let x = d3.scaleBand()
         .domain(raceData.map(d => d.race)) // data, returns array
         .range([margin.left, width - margin.right]) // pixels on page
-        .padding(0.1);
+        .padding(0.4);
     
     let y = d3.scaleLinear()
-        .domain([0, d3.max(raceData, d => d.count)]).nice() // nice rounds the top num
+        .domain([0, d3.max(raceData, d => d.count), 100]) // nice rounds the top num
         .range([height - margin.bottom, margin.top]); //svgs are built from top down, so this is reversed
     
     /* Update: simplfied axes */
     svg.append("g")
         .attr("transform", `translate(0,${height - margin.bottom + 5})`) // move location of axis
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+        .call(g => g.select(".domain")
+                    .remove())
+        .style("font-size","15px");
     
     svg.append("g")
         .attr("transform", `translate(${margin.left - 5},0)`)
         .call(d3.axisLeft(y)
-				.tickFormat(d => d + "%"));
+				.tickFormat(d => d + "%"))
+        .call(g => g.select(".domain")
+                    .remove())
+        .style("font-size","15px");
 
     let bar = svg.selectAll(".bar") // create bar groups
         .append("g")
@@ -87,18 +94,44 @@ d3.json("a3cleanedonly2015.json").then(data => {
         .join("g")
         .attr("class", "bar");
 
-    bar.append("rect") // add rect to bar group
+    bar.append("rect") 
         .attr("fill", "maroon")
-        .attr("x", d => x(d.race)) // x position attribute
-        .attr("width", x.bandwidth()) // this width is the width attr on the element
-        .attr("y", d => y(d.count)) // y position attribute
-        .attr("height", d => y(0) - y(d.count)); // this height is the height attr on element
+        .attr("x", d => x(d.race))
+        .attr("width", x.bandwidth())
+        .attr("y", d => y(d.count))
+        .attr("height", d => y(0) - y(d.count))
+        .style("fill", "steelblue");
     
     bar.append('text') // add labels
         .text(d => d.count)
-        .attr('x', d => x(d.race) + (x.bandwidth()/2))
+        .attr('x', d => x(d.race) + (x.bandwidth() / 2))
         .attr('y', d => y(d.count) - 10)
         .attr('text-anchor', 'middle')
-        .style('fill', 'black');
+        .style('fill', 'steelblue')
+        .style("font-size","14px");
+
+    svg.append("text")
+      .attr("class", "x-label")
+      .attr("text-anchor", "end")
+      .attr("x", width - margin.right - 30)
+      .attr("y", height + 5)
+      .attr("dx", "0.5em")
+      .attr("dy", "-0.5em")
+      .style("font-size", "18px")
+      .style("fill", "#004669")
+      .style("font-weight", "bold")
+      .text("Race");
+    
+    svg.append("text")
+      .attr("class", "y-label")
+      .attr("text-anchor", "end")
+      .attr("x", 5)
+      .attr("dx", "-0.5em")
+      .attr("y", 20)
+      .attr("transform", "rotate(-90)")
+      .style("font-size", "18px")
+      .style("fill", "#004669")
+      .style("font-weight", "bold")
+      .text("Percentage");
 
 });
