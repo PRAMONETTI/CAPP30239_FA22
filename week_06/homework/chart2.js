@@ -1,20 +1,45 @@
-d3.csv("mental_illness.csv").then((data) => {
+d3.json("a3cleanedonly2015.json").then((data) => {
+
+  // console.log(data);
+
   const height = 400,
     width = 600,
     innerRadius = 80, // if 0, full pie
     outerRadius = 175,
     labelRadius = 200;
 
+    let newData = [
+      {
+          "category": "Yes",
+          "amount": 0
+      },
+      {
+          "category": "No",
+          "amount": 0
+      },
+    ]
+
     for (let d of data) {
-      d.count = +d.count; //force a number
-      d.count = d.count.toFixed(2);
+      if (d.Mental_illness === true) {
+          newData[0].amount += 1;
+      }  else {
+          newData[1].amount += 1;
+      }
     };
 
-  // To group and count data
-  // data = d3.rollup(data_raw, v => v.length, d => d.Mental_illness)
-  // console.log(data)
+    let total_obs = 0
 
-  const arcs = d3.pie().value(d => d.count)(data); // jalo codigo para media luna
+    for (let d of newData) {
+      total_obs += d.amount
+    };
+
+    for (let d of newData) {
+        d.share = ((d.amount / total_obs) * 100).toFixed(1)
+    }
+    
+    console.log(newData)
+
+  const arcs = d3.pie().value(d => d.share)(newData);
   const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
   const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
 
@@ -43,9 +68,7 @@ d3.csv("mental_illness.csv").then((data) => {
      .join("text")
      .attr("transform", d => `translate(${arcLabel.centroid(d)})`) // at center of the arc
      .selectAll("tspan")
-     .data(d => {
-       return [d.data.mental_illness, d.data.count];
-     })
+     .data(d => {return [d.data.category, d.data.share];})
      .join("tspan")
      .attr("x", 0)
      .attr("y", (d, i) => `${i * 1.1}em`)
