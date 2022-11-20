@@ -11,8 +11,8 @@ function UpdateChart(file) {
     d.Percentage= +d.Percentage;
     }
     console.log(data);  // Establish the dimensions of the chart
-    const height = 600,
-    width = 800,
+    const height = 500,
+    width = 700,
     margin = ({top: 25, right: 30, bottom: 35, left:50});
 
     let div = d3.select("#chart3") // Create the svg object as a chart
