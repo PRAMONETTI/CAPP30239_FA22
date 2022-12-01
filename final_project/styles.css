@@ -1,0 +1,29 @@
+body {
+    background: url("images/27610.jpg") no-repeat center center fixed; 
+    background-size: cover;
+    color: white;
+    font-family: 'Brush Script MT', cursive;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+}
+
+.block {
+    display: flex;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.left {
+    width: 50%;
+}
+
+.right {
+    width: 50%;
+}
+
+img {
+    width: 80%;
+    margin-left: 20px;
+    box-shadow: 10px 10px 2px ghostwhite;
+}
