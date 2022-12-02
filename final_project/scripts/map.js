@@ -1,9 +1,12 @@
+files = ["tools/desktop_map.csv","tools/laptop_map.csv","tools/tv_map.csv",
+"tools/tablet_map.csv","tools/smartphone_map.csv","tools/internet_map.csv"]
+
 const tooltip = d3.select("body").append("div")
   .attr("class", "svg-tooltip")
   .style("position", "absolute")
   .style("visibility", "hidden");
 
-const height = 610,
+const height = 550,
   width = 975;
 
 const svg = d3.select("#chart")
@@ -11,8 +14,8 @@ const svg = d3.select("#chart")
   .attr("viewBox", [0, 0, width, height]);
 
 Promise.all([
-  d3.csv("tv_map.csv"),
-  d3.json("mexico.json")
+  d3.csv("tools/desktop_map.csv"),
+  d3.json("jsons/mexico.json")
 ]).then(([data, mx]) => {
   const dataById = {};
 
@@ -30,7 +33,7 @@ Promise.all([
     .range(d3.schemeReds[5]);
 
   const projection = d3.geoMercator()
-    .scale(1800)
+    .scale(1300)
     .center([-102, 26]);
 
   const path = d3.geoPath()
@@ -60,10 +63,18 @@ console.log(states.features)
         .html(`${info.NAME_1}<br>${info.percentage}%`)
         .style("top", (event.pageY - 10) + "px")
         .style("left", (event.pageX + 10) + "px");
-      d3.select(this).attr("fill", "goldenrod");
+      d3.select(this).attr("fill", "green");
     })
     .on("mouseout", function () {
       tooltip.style("visibility", "hidden");
       d3.select(this).attr("fill", d => (d.properties.NAME_1 in dataById) ? color(dataById[d.properties.NAME_1].percentage) : '#ccc');
     });
 });
+
+//UpdateMap(files[0])
+
+const select = document.getElementById('select');
+select.addEventListener('change', function handleChange(event) {
+    const index = parseInt(event.target.value);
+    UpdateMap(files[index])
+  });

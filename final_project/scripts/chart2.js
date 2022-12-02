@@ -1,4 +1,4 @@
-d3.json("df_chart2.json").then((data) => {
+d3.json("jsons/df_chart2.json").then((data) => {
 
     console.log(data);
   

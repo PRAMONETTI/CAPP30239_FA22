@@ -6,14 +6,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles.css">
     <title>Chart 3</title>
-    <!--<link rel="stylesheet" href="styles.css"-->
   </head>
-  <style>
-    svg {
-      width: 700px;
-      height: 500px;
-    }
-  </style>
 
 <body class="container">
 
@@ -29,7 +22,7 @@
       </ul>
     </div>
   </nav>
-  <h1>% of households with access to the necessary tools for remote education - per region</h1>
+  <h1>% of households with access to the necessary tools for remote education - per state</h1>
   <label>
     Tool
     <select id="select">
@@ -41,12 +34,17 @@
       <option value="5">Internet</option>
     </select>
  </label>
-  <div id="chart3"></div>
+ <div id="container">
+  <div id="legend"></div>
+  <div id="chart"></div>
+</div>
   <p><a href="https://www.inegi.org.mx/investigacion/ecovided/2020/#Microdatos">Raw data available in this link</a></p>
   <p>In the whole country, most of the households did not count with the necessary tools to adjust to remote education.
     This situation is even worse for the Southwest region, which is historically the poorest in the country.
   </p>
 </body>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="chart3.js"></script>
+<script src="scripts/libs/d3-color-legend.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="scripts/map.js"></script>
 </html>
