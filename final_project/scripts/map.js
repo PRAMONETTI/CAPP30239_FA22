@@ -93,8 +93,6 @@ function UpdateMap(file) {
   });
 }
 
-//UpdateMap(files[0])
-
 UpdateMap(files[0])
 
 const select = document.getElementById('select');
