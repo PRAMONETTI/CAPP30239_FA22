@@ -57,8 +57,6 @@ function UpdateMap(file) {
 
     const legend_values = [min_value.toFixed(2), (min_value + cuts).toFixed(2),
       (min_value + 2* cuts).toFixed(2), (max_value-cuts).toFixed(2), max_value.toFixed(2)]
-
-    console.log(legend_values)
     
     d3.select("#legend")
       .node()
@@ -93,10 +91,36 @@ function UpdateMap(file) {
   });
 }
 
+function UpdateDescription(index) {
+  console.log(index)
+  const description = document.getElementById("map_description")
+  if (index == 0) {
+    description.innerHTML = "In the best cases, the Southcenter of Mexico shows that around 3 out of 10 households have a desktop. For the Southwest region, is barely 1 out of 10"
+  }
+  else if (index == 1) {
+    description.innerHTML = "The access to a laptop ranges from 20 to 50%. Again, the Southwest region shows less access to a laptop than the rest of the country."
+  }
+  else if (index == 2) {
+    description.innerHTML = "As an alternative to school attendance, the government offered a series of classes via national TV. However, again, a good share of households do not have access to a TV."
+  }
+  else if (index == 3) {
+    description.innerHTML = "Tablets are less likely in households than laptops. In a couple of states of the Northeast, we can see that 3 out of 10 households have a tablet. For the rest of the country, the percentage is much lower."
+  }
+  else if (index == 4) {
+    description.innerHTML = "Smartphone is the most common type of information technology to which Mexican households have access. However, we have to consider that there are some limitations in terms of it's use as a tool to attend to virtual classes, compared to a laptop or even a tablet."
+  }
+  else if (index == 5) {
+  description.innerHTML = "Internet, which is an essential tool on these days, shows the biggest breach among states. While some states are mostly covered, in other states only 1 out of 3 households has acces to internet."
+  }
+}
+
 UpdateMap(files[0])
+UpdateDescription(0)
 
 const select = document.getElementById('select');
 select.addEventListener('change', function handleChange(event) {
     const index = parseInt(event.target.value);
-    UpdateMap(files[index])
+    console.log(index)
+    UpdateMap(files[index]);
+    UpdateDescription(index);
   });

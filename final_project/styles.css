@@ -28,8 +28,9 @@ p {
 
 img {
     width: 80%;
-    margin-left: 20px;
     box-shadow: 2px 2px 2px ghostwhite;
+    display: block;
+    margin: auto;
 }
 
 .svg-tooltip {
@@ -40,4 +41,11 @@ img {
 svg {
     display: block;
     margin: auto;
+}
+
+#inegi {
+    background: transparent;
+    max-height: 70%;
+    max-width: 70%;
+    margin-top: 20px;
 }
