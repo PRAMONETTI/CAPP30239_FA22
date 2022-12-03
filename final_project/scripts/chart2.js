@@ -43,7 +43,7 @@ d3.json("jsons/df_chart2.json").then((data) => {
     const arcs = d3.pie().value(d => d.share)(newData);
     const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
     const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
-    const scale = ["red", "green"];
+    const scale = ["#8e7cc3", "#bcb1d7"];
   
     const svg = d3.select("#chart2")
       .append("svg")
@@ -63,7 +63,7 @@ d3.json("jsons/df_chart2.json").then((data) => {
       .attr("d", arc); // this is the path 'd' and we are passing the arc
   
      svg.append("g") // text around the pie
-      .attr("font-size", 20)
+      .attr("font-size", 16)
       .attr("text-anchor", "middle")
       .selectAll("text")
       .data(arcs)
@@ -73,15 +73,8 @@ d3.json("jsons/df_chart2.json").then((data) => {
       .data(d => {return [d.data.category, d.data.share];})
       .join("tspan")
       .attr("x", 0)
-      .attr("y", (d, i) => `${i * 1.1}em`)
-      .attr("font-weight", (d, i) => i ? null : "bold") // (i = iterator) make it bold for first round
+      .attr("y", (d, i) => `${i * 1.2}em`)
+      .attr("fill", "white")
       .text(d => d);
   
-     //svg.append("text") // text in the center
-     //  .attr("font-size", 30)
-     //  .attr("font-weight", "bold")
-     //  .attr("text-anchor", "middle")
-     //  .attr("alignment-baseline", "middle")
-     //  .text("Mental Illness")
-     //  .style("font-size", 20);
   });

@@ -8,6 +8,10 @@ body {
     justify-content: center;
 }
 
+p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .block {
     display: flex;
     text-align: justify;
@@ -26,4 +30,14 @@ img {
     width: 80%;
     margin-left: 20px;
     box-shadow: 2px 2px 2px ghostwhite;
+}
+
+.svg-tooltip {
+    background-color: forestgreen;
+    border:2px solid gray;
+}
+
+svg {
+    display: block;
+    margin: auto;
 }

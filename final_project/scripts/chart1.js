@@ -44,7 +44,7 @@ function UpdateChart(file) {
     .attr("class","bar");
 
     bar.append("rect") 
-    .attr("fill", "green")
+    .attr("fill", "#bcb1d7")
     .attr("x", d => x(d.Possibility))
     .attr("width", x.bandwidth())
     .attr("y", d => y(d.Percentage)).transition().duration(1500)
@@ -55,7 +55,7 @@ function UpdateChart(file) {
     .attr('x', d => x(d.Possibility) + (x.bandwidth()/2))
     .attr('y', d => y(d.Percentage) - 8)
     .attr('text-anchor', 'middle')
-    .attr('fill', 'red');
+    .attr('fill', 'white');
 });
 
 }
