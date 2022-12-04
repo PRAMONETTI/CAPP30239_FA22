@@ -95,7 +95,7 @@ function UpdateDescription(index) {
   console.log(index)
   const description = document.getElementById("map_description")
   if (index == 0) {
-    description.innerHTML = "In the best cases, the Southcenter of Mexico shows that around 3 out of 10 households have a desktop. For the Southwest region, is barely 1 out of 10"
+    description.innerHTML = "In the best cases, the Southcenter of Mexico shows that around 3 out of 10 households have a desktop. For the Southwest region, is barely 1 out of 10 households."
   }
   else if (index == 1) {
     description.innerHTML = "The access to a laptop ranges from 20 to 50%. Again, the Southwest region shows less access to a laptop than the rest of the country."
