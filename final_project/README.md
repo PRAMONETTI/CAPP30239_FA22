@@ -1,5 +1,5 @@
-#FINAL PROJECT
-##By Pedro Antonio Ramonetti Vega
+# FINAL PROJECT
+## By Pedro Antonio Ramonetti Vega
 
 This folder contains all of the documents that composed my final project for the Data Visualization Course (CAPP30239 Fall 2022). The project is structured as following: 
 
