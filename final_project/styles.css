@@ -43,9 +43,18 @@ svg {
     margin: auto;
 }
 
+#rural {
+    max-height: 65%;
+    max-width: 75%;
+}
+
 #inegi {
     background: transparent;
     max-height: 70%;
     max-width: 70%;
     margin-top: 20px;
+}
+
+li {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
