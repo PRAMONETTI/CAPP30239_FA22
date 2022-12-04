@@ -104,10 +104,10 @@ function UpdateDescription(index) {
     description.innerHTML = "As an alternative to school attendance, the government offered a series of classes via national TV. However, again, a good share of households do not have access to a TV."
   }
   else if (index == 3) {
-    description.innerHTML = "Tablets are less likely in households than laptops. In a couple of states of the Northeast, we can see that 3 out of 10 households have a tablet. For the rest of the country, the percentage is much lower."
+    description.innerHTML = "Tablets, while useful for education, might be the less common type of IT to be found in households. In a couple of states of the Northeast, we can see that 3 out of 10 households have a tablet. For the rest of the country, the percentage is much lower."
   }
   else if (index == 4) {
-    description.innerHTML = "Smartphone is the most common type of information technology to which Mexican households have access. However, we have to consider that there are some limitations in terms of it's use as a tool to attend to virtual classes, compared to a laptop or even a tablet."
+    description.innerHTML = "Smartphone is the most common type of IT to which Mexican households have access. However, we have to consider that there are some limitations in terms of it's use as a tool to attend to virtual classes, compared to a laptop or even a tablet."
   }
   else if (index == 5) {
   description.innerHTML = "Internet, which is an essential tool on these days, shows the biggest breach among states. While some states are mostly covered, in other states only 1 out of 3 households has acces to internet."
