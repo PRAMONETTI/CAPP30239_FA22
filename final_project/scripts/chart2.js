@@ -78,3 +78,82 @@ d3.json("jsons/df_chart2.json").then((data) => {
       .text(d => d);
   
   });
+
+  d3.csv("motives/motives.csv").then(data => {
+
+    for (let d of data) {
+        d.percentage = +d.percentage;
+    };
+
+    const tooltip = d3.select("body").append("div")
+      .attr("class", "svg-tooltip")
+      .style("position", "absolute")
+      .style("visibility", "hidden");
+
+    const height = 600,
+          width = 800,
+          margin = ({ top: 25, right: 30, bottom: 55, left: 65 });
+
+    let svg = d3.select("#chart2_2")
+        .append("svg")
+        .attr("viewBox", [0, 0, width, height]); // for resizing element in browser
+
+    let x = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.percentage)]).nice()
+        .range([margin.left, width - margin.right]);
+    
+    let y = d3.scaleBand()
+        .domain(data.map(d => d.motive))
+        .range([margin.top, height - margin.bottom])
+        .padding(0.1);
+
+    svg.append("g")
+        .attr("transform", `translate(0,${height - margin.bottom + 5})`)
+        .call(d3.axisBottom(x));
+    
+    svg.append("g")
+        .attr("transform", `translate(${margin.left - 5},0)`)
+
+    let bar = svg.selectAll(".bar") // create bar groups
+        .append("g")
+        .data(data)
+        .join("g")
+        .attr("class", "bar")
+        .on("mousemove", function (event, d) {
+          let info = d.motive;
+          tooltip
+            .style("visibility", "visible")
+            .html(`${info}`)
+            .style("top", (event.pageY - 10) + "px")
+            .style("left", (event.pageX + 10) + "px");
+          d3.select(this).attr("fill", "lightyellow");
+        })
+        .on("mouseout", function () {
+          tooltip.style("visibility", "hidden");
+        });
+
+    bar.append("rect") // add rect to bar group
+        .attr("fill", "#8e7cc3")
+        .attr("x", margin.left)
+        .attr("width", d => x(d.percentage))
+        .attr("y", d => y(d.motive))
+        .attr("height", y.bandwidth());
+    
+    bar.append('text')
+        .text(d => d.percentage)
+        .attr('x', d => margin.left + x(d.percentage) - 10)
+        .attr('y', d => y(d.motive) + (y.bandwidth()/2))
+        .attr('text-anchor', 'end')
+        .attr('dominant-baseline', 'middle')
+        .style('fill', 'white');
+
+    svg.append("text")
+      .attr("class", "x-label")
+      .attr("text-anchor", "end")
+      .attr("x", width - margin.right)
+      .attr("y", height)
+      .attr("dx", "0.5em") 
+      .attr("dy", "-0.5em") 
+      .attr('fill', 'white')
+      .text("Share %");
+});

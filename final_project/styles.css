@@ -58,3 +58,7 @@ svg {
 li {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+#chart2_2 svg {
+    max-width: 750px;
+}
