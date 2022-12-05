@@ -1,4 +1,4 @@
-const files = ["gender/female.csv","gender/male.csv"]
+const files = ["gender/female.csv","gender/male.csv"] // The files used for the chart
 
 const chart = document.getElementById('chart1');
 const height = 500;
@@ -13,19 +13,21 @@ const x = d3.scaleBand()
     .range([margin.left, width - margin.right])
     .padding(0.1);
 
-const xAxis = svg.append("g")  // Create the actual axis X and call the constant x
+
+// The axis are created only once
+const xAxis = svg.append("g")  
     .attr("transform", `translate ( 0, ${height - margin.bottom +5})`)
 
-const y = d3.scaleLinear()    //Establish the constant y (the number of visits), its domain and the range of the axis 
+const y = d3.scaleLinear()   
     .range([height - margin.bottom, margin.top]);
 
-const yAxis = svg.append("g")  // Create the actual axis Y and call the constant y
-    .attr("transform", `translate (${margin.left -5}, 0)`)
+const yAxis = svg.append("g") 
+    .attr("transform", `translate (${margin.left -5}, 0)`) 
+
 
 function UpdateChart(file) {
-    svg.selectAll(".bar").remove()
-    d3.csv(file).then(data => { // We begin by reading the data and transforming our
-        // num variable into a number
+    svg.selectAll(".bar").remove() // If previous bars exist, I remove them and append new ones.
+    d3.csv(file).then(data => {  
     for (let d of data) {
     d.Percentage= +d.Percentage;
     }
@@ -60,9 +62,9 @@ function UpdateChart(file) {
 
 }
 
-UpdateChart(files[0]);
+UpdateChart(files[0]); // I call the first file of the array to display when the page is opened
 
-const select = document.getElementById('select');
+const select = document.getElementById('select'); // Event listener to change the bar chart
 select.addEventListener('change', function handleChange(event) {
     const index = parseInt(event.target.value);
     UpdateChart(files[index])

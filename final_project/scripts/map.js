@@ -1,5 +1,5 @@
 files = ["tools/desktop_map.csv","tools/laptop_map.csv","tools/tv_map.csv",
-"tools/tablet_map.csv","tools/smartphone_map.csv","tools/internet_map.csv"]
+"tools/tablet_map.csv","tools/smartphone_map.csv","tools/internet_map.csv"] // All of the files used to color the map.
 
 const tooltip = d3.select("body").append("div")
   .attr("class", "svg-tooltip")
@@ -11,10 +11,10 @@ const height = 550,
 
 const svg = d3.select("#chart")
   .append("svg")
-  .attr("viewBox", [0, 0, width, height]);
+  .attr("viewBox", [0, 0, width, height]); // The svg object is created only once
   
 function UpdateMap(file) {
-    svg.selectAll(".g").remove();
+    svg.selectAll(".g").remove(); // I remove the g and legend, so I can append new ones.
     const legend = document.getElementById("legend");
     if (legend.firstElementChild) {
       legend.removeChild(legend.firstElementChild);
@@ -31,32 +31,32 @@ function UpdateMap(file) {
     for (let d of data) {
         d.percentage = +d.percentage;
         values.push(d.percentage);
-        //making a lookup table from the array (unemployment data)
         dataById[d.NAME_1] = d;
     }
 
     const states = topojson.feature(mx, mx.objects.MEX_adm1);
 
     const max_value = Math.max(...values);
-    const min_value = Math.min(...values);
+    const min_value = Math.min(...values); // These min-max values will help me to build the legend dynamically
 
     const range_values = max_value-min_value
     const cuts = (range_values / 4)
 
-  // Quantize evenly breakups domain into range buckets
     const color = d3.scaleQuantize()
       .domain([min_value, max_value]).nice()
       .range(d3.schemeBuPu[5]);
 
-    const projection = d3.geoMercator()
+    const projection = d3.geoMercator() // My topojson requires to define the attributes of the projecion.
       .scale(1300)
       .center([-102, 26]);
 
     const path = d3.geoPath()
       .projection(projection);
 
+    // Creating the legend values using the ranges I calculated before
+    
     const legend_values = [min_value.toFixed(2), (min_value + cuts).toFixed(2),
-      (min_value + 2* cuts).toFixed(2), (max_value-cuts).toFixed(2), max_value.toFixed(2)]
+      (min_value + 2* cuts).toFixed(2), (max_value-cuts).toFixed(2), max_value.toFixed(2)]  
     
     d3.select("#legend")
       .node()
@@ -69,7 +69,7 @@ function UpdateMap(file) {
           { title: "(%) of households with access to the tool" }
         ));
    
-    svg.append("g")
+    svg.append("g") // Let´s create the map
       .selectAll("path")
       .data(states.features)
       .join("path")
@@ -77,7 +77,7 @@ function UpdateMap(file) {
       .attr("d", path)
       .on("mousemove", function (event, d) {
         let info = dataById[d.properties.NAME_1];
-        tooltip
+        tooltip // Mouse effect
           .style("visibility", "visible")
           .html(`${info.NAME_1}<br>${info.percentage}%`)
           .style("top", (event.pageY - 10) + "px")
@@ -90,6 +90,8 @@ function UpdateMap(file) {
       });
   });
 }
+
+// I make the text below the map dynamic
 
 function UpdateDescription(index) {
   console.log(index)
@@ -114,7 +116,7 @@ function UpdateDescription(index) {
   }
 }
 
-UpdateMap(files[0])
+UpdateMap(files[0]) // When I load the page, I call the function with the first option of the dropdown list.
 UpdateDescription(0)
 
 const select = document.getElementById('select');

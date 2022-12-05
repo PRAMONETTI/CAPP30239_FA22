@@ -1,13 +1,15 @@
-d3.json("jsons/df_chart2.json").then((data) => {
+d3.json("jsons/df_chart2.json").then((data) => { // Beginning with the pie chart
 
     console.log(data);
   
     const height = 500,
           width = 500,
-          innerRadius = 50, // if 0, full pie
-          outerRadius = 175,
+          innerRadius = 30, 
+          outerRadius = 165,
           labelRadius = 200;
-   
+    
+    // Transforming the data into the required format 
+
       let newData = [
         {
           "category": "Yes",
@@ -37,15 +39,13 @@ d3.json("jsons/df_chart2.json").then((data) => {
       for (let d of newData) {
           d.share = ((d.amount / total_obs) * 100).toFixed(1)
       }
-      
-      console.log(newData)
   
     const arcs = d3.pie().value(d => d.share)(newData);
     const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
     const arcLabel = d3.arc().innerRadius(labelRadius).outerRadius(labelRadius);
     const scale = ["#8e7cc3", "#bcb1d7"];
   
-    const svg = d3.select("#chart2")
+    const svg = d3.select("#chart2") // Creating the svg
       .append("svg")
       .attr("width", width)
       .attr("height", height)
@@ -59,10 +59,10 @@ d3.json("jsons/df_chart2.json").then((data) => {
       .selectAll("path")
       .data(arcs)
       .join("path")
-      .attr("fill", (d, i) => scale[i]) // automated colors
-      .attr("d", arc); // this is the path 'd' and we are passing the arc
+      .attr("fill", (d, i) => scale[i]) 
+      .attr("d", arc); 
   
-     svg.append("g") // text around the pie
+     svg.append("g") 
       .attr("font-size", 16)
       .attr("text-anchor", "middle")
       .selectAll("text")
@@ -78,6 +78,8 @@ d3.json("jsons/df_chart2.json").then((data) => {
       .text(d => d);
   
   });
+
+  // Second chart
 
   d3.csv("motives/motives.csv").then(data => {
 
@@ -121,7 +123,7 @@ d3.json("jsons/df_chart2.json").then((data) => {
         .attr("class", "bar")
         .on("mousemove", function (event, d) {
           let info = d.motive;
-          tooltip
+          tooltip // Mouse effect - Labels did not look that good, so I prefer to show them when the user points a bar
             .style("visibility", "visible")
             .html(`${info}`)
             .style("top", (event.pageY - 10) + "px")
